@@ -1,6 +1,6 @@
 {
-  "name": "@f3d-commerce/json-schema-to-typescript",
-  "version": "12.0.0",
+  "name": "@fathom3-dev/json-schema-to-typescript",
+  "version": "12.1.0",
   "description": "compile json schema to typescript typings",
   "main": "dist/src/index.js",
   "bin": {
@@ -19,7 +19,6 @@
     "tdd": "concurrently -r -p '' -k 'npm run watch' 'npm run watch:test'",
     "test": "npm run pre-test && ava --timeout=300s --verbose",
     "stresstest": "seq 1 10 | xargs -I{} npm test",
-    "prepublishOnly": "npm test",
     "pre-test": "npm run clean && npm run build:server",
     "watch": "tsc -w",
     "watch:test": "ava -w"

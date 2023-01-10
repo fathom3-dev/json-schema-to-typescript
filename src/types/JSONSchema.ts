@@ -105,6 +105,7 @@ export interface SchemaSchema extends NormalizedJSONSchema {
   properties: {
     [k: string]: NormalizedJSONSchema
   }
+  nullable?: boolean
   required: string[]
 }
 

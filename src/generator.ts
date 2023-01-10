@@ -150,11 +150,15 @@ function declareNamedTypes(ast: AST, options: Options, rootASTName: string, proc
   }
 }
 
-function generateTypeUnmemoized(ast: AST, options: Options): string {
-  const type = generateRawType(ast, options)
+function generateTypeUnmemoized(ast: AST, options: Options, isNullable = false): string {
+  let type = generateRawType(ast, options)
+
+  if (isNullable) {
+    type = `${type} | null`
+  }
 
   if (options.strictIndexSignatures && ast.keyName === '[k: string]') {
-    return `${type} | undefined`
+    type = `${type} | undefined`
   }
 
   return type
@@ -297,8 +301,8 @@ function generateInterface(ast: TInterface, options: Options): string {
     ast.params
       .filter(_ => !_.isPatternProperty && !_.isUnreachableDefinition)
       .map(
-        ({isRequired, keyName, ast}) =>
-          [isRequired, keyName, ast, generateType(ast, options)] as [boolean, string, AST, string]
+        ({isRequired, isNullable, keyName, ast}) =>
+          [isRequired, keyName, ast, generateType(ast, options, isNullable)] as [boolean, string, AST, string]
       )
       .map(
         ([isRequired, keyName, ast, type]) =>

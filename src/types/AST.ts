@@ -82,6 +82,7 @@ export interface TNamedInterface extends AbstractAST {
 export interface TInterfaceParam {
   ast: AST
   keyName: string
+  isNullable: boolean
   isRequired: boolean
   isPatternProperty: boolean
   isUnreachableDefinition: boolean
