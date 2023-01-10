@@ -353,7 +353,7 @@ function parseSchema(
   let asts: TInterfaceParam[] = map(schema.properties, (value, key: string) => ({
     ast: parse(value, options, key, processed, usedNames),
     isPatternProperty: false,
-    isRequired: includes(schema.required || [], key),
+    isRequired: includes(schema.required || [], key) && schema.properties[key].default === undefined,
     isUnreachableDefinition: false,
     keyName: key
   }))

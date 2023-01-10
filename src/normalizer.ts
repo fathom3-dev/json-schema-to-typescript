@@ -52,7 +52,7 @@ rules.set('Transform `required`=false to `required`=[]', schema => {
   }
 })
 
-rules.set('Default additionalProperties', (schema, _, options) => {
+rules.set('Default additionalProperties', (schema: any, _, options) => {
   if (isObjectType(schema) && !('additionalProperties' in schema) && schema.patternProperties === undefined) {
     schema.additionalProperties = options.additionalProperties
   }
