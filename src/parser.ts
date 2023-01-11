@@ -353,7 +353,7 @@ function parseSchema(
   let asts: TInterfaceParam[] = map(schema.properties, (value, key: string) => ({
     ast: parse(value, options, key, processed, usedNames),
     isPatternProperty: false,
-    isNullable: schema.nullable === true,
+    isNullable: schema.properties[key].nullable === true,
     isRequired: includes(schema.required || [], key) && schema.properties[key].default === undefined,
     isUnreachableDefinition: false,
     keyName: key
@@ -375,7 +375,7 @@ via the \`patternProperty\` "${key}".`
         return {
           ast,
           isPatternProperty: !singlePatternProperty,
-          isNullable: schema.nullable === true,
+          isNullable: false,
           isRequired: singlePatternProperty || includes(schema.required || [], key),
           isUnreachableDefinition: false,
           keyName: singlePatternProperty ? '[k: string]' : key
@@ -394,7 +394,7 @@ via the \`definition\` "${key}".`
         return {
           ast,
           isPatternProperty: false,
-          isNullable: schema.nullable === true,
+          isNullable: false,
           isRequired: includes(schema.required || [], key),
           isUnreachableDefinition: true,
           keyName: key
@@ -413,7 +413,7 @@ via the \`definition\` "${key}".`
       return asts.concat({
         ast: options.unknownAny ? T_UNKNOWN_ADDITIONAL_PROPERTIES : T_ANY_ADDITIONAL_PROPERTIES,
         isPatternProperty: false,
-        isNullable: schema.nullable === true,
+        isNullable: false,
         isRequired: true,
         isUnreachableDefinition: false,
         keyName: '[k: string]'
@@ -428,7 +428,7 @@ via the \`definition\` "${key}".`
       return asts.concat({
         ast: parse(schema.additionalProperties, options, '[k: string]', processed, usedNames),
         isPatternProperty: false,
-        isNullable: schema.nullable === true,
+        isNullable: false,
         isRequired: true,
         isUnreachableDefinition: false,
         keyName: '[k: string]'
