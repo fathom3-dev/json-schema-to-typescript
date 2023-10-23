@@ -1,5 +1,5 @@
 {
-  "name": "@fathom3-dev/json-schema-to-typescript",
+  "name": "@a-safe-digital/json-schema-to-typescript",
   "version": "12.1.1",
   "description": "compile json schema to typescript typings",
   "main": "dist/src/index.js",
