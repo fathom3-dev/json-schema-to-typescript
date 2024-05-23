@@ -15,6 +15,7 @@ import {
   T_UNKNOWN
 } from './types/AST'
 import {log, toSafeString} from './utils'
+import {deepStrictEqual} from 'assert/strict'
 
 export function generate(ast: AST, options = DEFAULT_OPTIONS): string {
   return (
@@ -58,12 +59,25 @@ function declareEnums(ast: AST, options: Options, processed = new Set<AST>()): s
   }
 }
 
+const declaredNamedInterfaces: Map<string, AST> = new Map()
+
 function declareNamedInterfaces(ast: AST, options: Options, rootASTName: string, processed = new Set<AST>()): string {
   if (processed.has(ast)) {
     return ''
   }
 
   processed.add(ast)
+
+  // only process named interfaces once even between different compile runs to avoid errors on sdk-generator
+  if (ast.standaloneName) {
+    const alreadyDeclared = declaredNamedInterfaces.get(ast.standaloneName)
+    if (alreadyDeclared) {
+      deepStrictEqual(ast, alreadyDeclared, 'Different ASTs with the same name: ' + ast.standaloneName)
+      return ''
+    }
+    declaredNamedInterfaces.set(ast.standaloneName, ast)
+  }
+
   let type = ''
 
   switch (ast.type) {
