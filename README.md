@@ -1,3 +1,5 @@
+This package has been modified and it wont serve its original purpose anymore, its only intended to be used by sdk-generator now. The original README is left here as reference:
+
 # json-schema-to-typescript [![Build Status][build]](https://github.com/bcherny/json-schema-to-typescript/actions?query=branch%3Amaster+workflow%3ACI) [![npm]](https://www.npmjs.com/package/json-schema-to-typescript) [![mit]](https://opensource.org/licenses/MIT)
 
 [build]: https://img.shields.io/github/workflow/status/bcherny/json-schema-to-typescript/CI/master?style=flat-square

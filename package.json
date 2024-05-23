@@ -1,7 +1,10 @@
 {
   "name": "@a-safe-digital/json-schema-to-typescript",
-  "version": "12.2.0-rc.0",
+  "version": "12.2.0-rc.1",
   "description": "compile json schema to typescript typings",
+  "files": [
+    "dist/src"
+  ],
   "main": "dist/src/index.js",
   "bin": {
     "json2ts": "dist/src/cli.js"
@@ -11,8 +14,7 @@
     "node": ">=12.0.0"
   },
   "scripts": {
-    "build": "npm run lint && npm run clean && npm run build:browser && npm run build:server",
-    "build:browser": "browserify src/index.ts -s jstt -p tsify > dist/bundle.js",
+    "build": "npm run lint && npm run clean && npm run build:server",
     "build:server": "tsc -d",
     "clean": "shx rm -rf dist && mkdir dist",
     "lint": "eslint src/*.ts test/*.ts",
@@ -71,8 +73,6 @@
     "@typescript-eslint/eslint-plugin": "^5.23.0",
     "@typescript-eslint/parser": "^5.23.0",
     "ava": "^4.2.0",
-    "browserify": "^17.0.0",
-    "browserify-shim": "^3.8.14",
     "concurrently": "^7.2.0",
     "eslint": "^8.15.0",
     "eslint-config-prettier": "^8.5.0",
@@ -90,13 +90,5 @@
       "./src"
     ],
     "snapshotDir": "./test/__snapshots__"
-  },
-  "browserify": {
-    "transform": [
-      "browserify-shim"
-    ]
-  },
-  "browserify-shim": {
-    "prettier": "global:prettier"
   }
 }
