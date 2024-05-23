@@ -1,15 +1,14 @@
 import {JSONSchemaTypeName, LinkedJSONSchema, NormalizedJSONSchema, Parent} from './types/JSONSchema'
 import {appendToDescription, escapeBlockComment, isSchemaLike, justName, toSafeString, traverse} from './utils'
 import {Options} from './'
-import {DereferencedPaths} from './resolver'
 import {isDeepStrictEqual} from 'util'
 
+// eslint-disable-next-line prettier/prettier
 type Rule = (
   schema: LinkedJSONSchema,
   fileName: string,
   options: Options,
   key: string | null,
-  dereferencedPaths: DereferencedPaths
 ) => void
 const rules = new Map<string, Rule>()
 
@@ -73,7 +72,7 @@ rules.set('Transform id to $id', (schema, fileName) => {
   }
 })
 
-rules.set('Add an $id to anything that needs it', (schema, fileName, _options, _key, dereferencedPaths) => {
+rules.set('Add an $id to anything that needs it', (schema, fileName) => {
   if (!isSchemaLike(schema)) {
     return
   }
@@ -87,17 +86,6 @@ rules.set('Add an $id to anything that needs it', (schema, fileName, _options, _
   // Sub-schemas with references
   if (!isArrayType(schema) && !isObjectType(schema)) {
     return
-  }
-
-  // We'll infer from $id and title downstream
-  // TODO: Normalize upstream
-  const dereferencedName = dereferencedPaths.get(schema)
-  if (!schema.$id && !schema.title && dereferencedName) {
-    schema.$id = toSafeString(justName(dereferencedName))
-  }
-
-  if (dereferencedName) {
-    dereferencedPaths.delete(schema)
   }
 })
 
@@ -222,12 +210,12 @@ rules.set('Transform const to singleton enum', schema => {
   }
 })
 
+// eslint-disable-next-line prettier/prettier
 export function normalize(
   rootSchema: LinkedJSONSchema,
-  dereferencedPaths: DereferencedPaths,
   filename: string,
-  options: Options
+  options: Options,
 ): NormalizedJSONSchema {
-  rules.forEach(rule => traverse(rootSchema, (schema, key) => rule(schema, filename, options, key, dereferencedPaths)))
+  rules.forEach(rule => traverse(rootSchema, (schema, key) => rule(schema, filename, options, key)))
   return rootSchema as NormalizedJSONSchema
 }

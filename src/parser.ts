@@ -1,6 +1,5 @@
 import {JSONSchema4Type, JSONSchema4TypeName} from 'json-schema'
 import {findKey, includes, isPlainObject, map, memoize, omit} from 'lodash'
-import {format} from 'util'
 import {Options} from './'
 import {typesOfSchema} from './typesOfSchema'
 import {
@@ -204,7 +203,10 @@ function parseNonLiteral(
         type: 'UNION'
       }
     case 'REFERENCE':
-      throw Error(format('Refs should have been resolved by the resolver!', schema))
+      return {
+        params: schema.$ref!,
+        type: 'REFERENCE'
+      }
     case 'STRING':
       return {
         comment: schema.description,

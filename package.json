@@ -1,6 +1,6 @@
 {
   "name": "@a-safe-digital/json-schema-to-typescript",
-  "version": "12.1.2",
+  "version": "12.2.0-rc.0",
   "description": "compile json schema to typescript typings",
   "main": "dist/src/index.js",
   "bin": {
@@ -25,7 +25,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bcherny/json-schema-to-typescript.git"
+    "url": "git+https://github.com/a-safe-digital/json-schema-to-typescript.git"
   },
   "keywords": [
     "json",
@@ -38,14 +38,13 @@
     "typing",
     "share"
   ],
-  "author": "Boris Cherny <boris@performancejs.com> (http://performancejs.com/)",
+  "author": "Boris Cherny <boris@performancejs.com> (http://performancejs.com/), Alejandro Caston <alejandro.caston@asafedigital.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bcherny/json-schema-to-typescript/issues"
+    "url": "https://github.com/a-safe-digital/json-schema-to-typescript/issues"
   },
-  "homepage": "https://github.com/bcherny/json-schema-to-typescript#readme",
+  "homepage": "https://github.com/a-safe-digital/json-schema-to-typescript#readme",
   "dependencies": {
-    "@bcherny/json-schema-ref-parser": "9.0.9",
     "@types/json-schema": "^7.0.11",
     "@types/lodash": "^4.14.182",
     "@types/prettier": "^2.6.1",
