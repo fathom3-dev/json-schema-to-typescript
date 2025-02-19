@@ -1,6 +1,6 @@
 {
   "name": "@a-safe-digital/json-schema-to-typescript",
-  "version": "12.2.0-rc.1",
+  "version": "12.2.0-rc.2",
   "description": "compile json schema to typescript typings",
   "files": [
     "dist/src"

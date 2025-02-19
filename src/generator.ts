@@ -70,12 +70,13 @@ function declareNamedInterfaces(ast: AST, options: Options, rootASTName: string,
 
   // only process named interfaces once even between different compile runs to avoid errors on sdk-generator
   if (ast.standaloneName) {
-    const alreadyDeclared = declaredNamedInterfaces.get(ast.standaloneName)
+    const declarationKey = `${options.filePath || ''}/${ast.standaloneName}`
+    const alreadyDeclared = declaredNamedInterfaces.get(declarationKey)
     if (alreadyDeclared) {
       deepStrictEqual(ast, alreadyDeclared, 'Different ASTs with the same name: ' + ast.standaloneName)
       return ''
     }
-    declaredNamedInterfaces.set(ast.standaloneName, ast)
+    declaredNamedInterfaces.set(declarationKey, ast)
   }
 
   let type = ''

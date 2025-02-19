@@ -17,6 +17,13 @@ export {EnumJSONSchema, JSONSchema, NamedEnumJSONSchema, CustomTypeJSONSchema} f
 
 export interface Options {
   /**
+   * Path of the file where this schema is going to be written.
+   * Note that this library wont write the filesystem for you,
+   * instead this property is used by the library to determine some cache keys,
+   * allowing you to have interfaces named the same between different files without causing a compile error.
+   */
+  filePath?: string
+  /**
    * Default value for additionalProperties, when it is not explicitly set.
    */
   additionalProperties: boolean
